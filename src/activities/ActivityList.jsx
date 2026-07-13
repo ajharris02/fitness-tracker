@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function ActivityList({ activities, setActivities }) {
-  const [error, setError] = useState("");
+  const [error, setError] = useState();
   const removeActivity = async (activityId) => {
     try {
       await axios.delete(
@@ -18,6 +18,7 @@ export default function ActivityList({ activities, setActivities }) {
           return activity.id !== activityId;
         }),
       );
+      setError("");
     } catch (error) {
       console.error(error);
       setError(error.status);
