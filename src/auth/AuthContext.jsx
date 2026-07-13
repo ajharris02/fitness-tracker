@@ -25,6 +25,7 @@ export function AuthProvider({ children }) {
     if (!response.ok) {
       throw Error(result.message);
     }
+    localStorage.setItem("token", result.token);
     setToken(result.token);
   };
 
@@ -38,10 +39,14 @@ export function AuthProvider({ children }) {
     if (!response.ok) {
       throw Error(result.message);
     }
+    localStorage.setItem("token", result.token);
     setToken(result.token);
   };
 
-  const logout = () => setToken(null);
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+  };
 
   const value = { token, register, login, logout };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
